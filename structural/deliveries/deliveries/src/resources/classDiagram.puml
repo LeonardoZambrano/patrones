@@ -1,0 +1,37 @@
+@startuml
+
+class BasicDelivery {
+    + deliver()
+    + generateCost() : double
+}
+
+interface Delivery {
+    + deliver()
+    + generateCost() : double
+}
+
+class DecoratorDelivery << abstract >>{
+    # deliveryDecorator : Delivery
+    + {abstract} deliver() 
+    + {abstract} generateCost() : double
+}
+
+class BasicFastDeliveryWithRoute {
+    - route : String
+    + deliver()
+    + generateCost() : double
+}
+
+class BasicProtectedDelivery {
+    + deliver()
+    + generateCost() : double
+}
+
+Delivery <|.left BasicDelivery
+Delivery <|.. DecoratorDelivery
+DecoratorDelivery o--> Delivery
+DecoratorDelivery <|-- BasicFastDeliveryWithRoute
+DecoratorDelivery <|-- BasicProtectedDelivery
+
+
+@enduml
