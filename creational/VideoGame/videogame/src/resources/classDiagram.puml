@@ -1,0 +1,35 @@
+@startuml videogame
+
+class Rolepropotype <<abstract>> {
+    # roleType: String
+    + getRoleType() : String
+    + setRoleType(String)
+    + {abstract} clone() : Rolepropotype
+}
+
+class Sniper {
+    - scope: String
+    + getScope() : String
+    + setScope(String)
+    + clone() : Rolepropotype
+}
+
+class Marine {
+    - ship: String
+    + getShip() : String
+    + setShip(String)
+    + clone() : Rolepropotype
+}
+
+class Client {
+    + setRolType(RolePrototype, String)
+    + createNewRole(RolePrototype) : RolePrototype
+}
+
+Rolepropotype <|-- Sniper
+Rolepropotype <|-left Marine
+
+
+Client .left.> Rolepropotype
+
+@enduml
