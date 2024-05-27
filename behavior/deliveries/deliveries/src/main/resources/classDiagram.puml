@@ -1,0 +1,97 @@
+@startuml
+
+class BasicDelivery {
+    # mediator : Mediator
+    + deliver(String deliver)
+    + generateCost() : double
+}
+
+interface Delivery {
+    + deliver(String deliver)
+    + generateCost() : double
+}
+
+class DecoratorDelivery << abstract >>{
+    # deliveryDecorator : Delivery
+    + {abstract} deliver(String deliver)
+    + {abstract} generateCost() : double
+}
+
+class BasicFastDeliveryWithRoute {
+    - route : String
+    + deliver(String deliver)
+    + generateCost() : double
+}
+
+class BasicProtectedDelivery {
+    + deliver(String deliver)
+    + generateCost() : double
+}
+
+class Colleague <<abstract>>{
+    # mediator : Mediator
+    + receive(String message)
+}
+
+class Dealer {
+    # name : String
+    + receive(String message)
+    + deliver()
+}
+
+class Packer {
+    + receive(String message)
+    + pack()
+}
+
+class Storer {
+    + receive(String message)
+    + store()
+}
+
+interface Mediator {
+    + notify(Colleague colleague)
+    + startShipping()
+    + savePackage()
+    + startPackaging()
+    + sendPackage()
+    + setDealer(Colleague dealer)
+    + setPacker(Colleague packer)
+    + setStorer(Colleague storer)
+
+}
+
+class DispatchHandler {
+    - Dealer dealer
+    - Packer packer
+    - Storer storer
+    + notify(Colleague colleague)
+    + startShipping()
+    + savePackage()
+    + startPackaging()
+    + sendPackage()
+    + setDealer(Colleague dealer)
+    + setPacker(Colleague packer)
+    + setStorer(Colleague storer)
+    - _notifyAll()
+}
+
+Delivery <|.left. BasicDelivery
+Delivery <|.. DecoratorDelivery
+DecoratorDelivery o--> Delivery
+DecoratorDelivery <|-- BasicFastDeliveryWithRoute
+DecoratorDelivery <|-- BasicProtectedDelivery
+
+
+Mediator <|.. DispatchHandler
+Colleague <|-up- Dealer
+Colleague <|-up- Packer
+Colleague <|-up- Storer
+
+DispatchHandler ..> Dealer
+DispatchHandler ..> Packer
+DispatchHandler ..> Storer
+
+BasicDelivery -left-> Mediator
+
+@enduml
