@@ -10,7 +10,7 @@ La empresa inicialmente realizaba entregas basicas y tenia una clase concreta pa
 
 ## Class Diagram
 
-<img src="./src/resources/classDiagram.svg">
+<img src="./src/main/resources/classDiagram.svg">
 
 ## Folder Structure
 
