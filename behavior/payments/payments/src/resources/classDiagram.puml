@@ -1,0 +1,65 @@
+@startuml payments
+
+class User {
+    - name : String
+    - idNumer : String
+    - idType : String
+    - cardType : String
+    - cardNumber : String
+    + getName() : String
+    + getIdNumer() : String
+    + getIdType() : String
+    + getCardType() : String
+    + getCardNumber() : String
+}
+
+interface Builder {
+    + setName(String name) : Builder
+    + setIdNumer(String idNumber) : Builder
+    + setIdType(String idType) : Builder
+    + setCardType(String cardType) : Builder
+    + setCardNumber(String cardNumber) : Builder
+}
+
+class UserBuilder {
+    - name : String
+    - idNumer : String
+    - idType : String
+    - cardType : String
+    - cardNumber : String
+
+    + setName(String name) : Builder
+    + setIdNumer(String idNumber) : Builder
+    + setIdType(String idType) : Builder
+    + setCardType(String cardType) : Builder
+    + setCardNumber(String cardNumber) : Builder
+    + build() : User
+}
+
+class TemplatePayment << abstract >> {
+    + {final} processPayment (User user, double amountPay)
+    # {abstract} validateMethodPayment(String cardType) : boolean
+    # {abstract} amountAccount(String cardNumber) : double
+    # {abstract} makePayment(String cardNumber, double amount)
+}
+
+class DebitCardPayment {
+    # validateMethodPayment(String cardType) : boolean
+    # amountAccount(String cardNumber) : double
+    # makePayment(String cardNumber, double amount)
+}
+class CreditCardPayment {
+    # validateMethodPayment(String cardType) : boolean
+    # amountAccount(String cardNumber) : double
+    # makePayment(String cardNumber, double amount)
+}
+
+
+Builder <|.. UserBuilder
+UserBuilder --> User
+TemplatePayment <|-- DebitCardPayment
+TemplatePayment <|-- CreditCardPayment
+
+TemplatePayment o.> User
+
+@enduml
