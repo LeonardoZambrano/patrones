@@ -2,6 +2,12 @@
 
 Este proyecto muestra el uso del patron `prototype`, desarrollado en Java. El escenario del prouyecto es basado en un juego de roles donde estan configurados los roles disponibles. Para este juego se cuenta con 2 roles, francotirador y marino. Por lo cual, una vez existen los primeros objetos de cada rol, los siguientes objetos son creados por medio de copias.
 
+## Class Diagram
+
+
+<img src="./src/resources/out/videogame/src/resources/classDiagram/videogame.svg">
+
+
 ## Folder Structure
 
 The workspace contains two folders by default, where:
