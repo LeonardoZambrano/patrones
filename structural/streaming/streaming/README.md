@@ -6,7 +6,7 @@ Sobre el proyecto se utilizo el patron `Abstract factory` para la creacion de lo
 
 ## Class Diagram
 
-<img src="./src/resources/classDiagram.svg">
+<img src="./src/resources/Streaming.svg">
 
 ## Folder Structure
 
