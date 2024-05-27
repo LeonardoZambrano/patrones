@@ -1,0 +1,90 @@
+@startuml shop
+
+interface AbstractFactory {
+  + createTicket() : Ticket
+  + createHousing() : Housing
+  + createTable() : Tour
+}
+
+class ExpensiveTravel {
+    + createTicket() : Ticket
+    + createHousing() : Housing
+    + createTable() : Tour
+}
+
+class EconomicTravel {
+    + createTicket() : Ticket
+    + createHousing() : Housing
+    + createTable() : Tour
+}
+
+interface Ticket {
+    + generatePath()
+    + generateCost()
+}
+
+interface Housing {
+    + services()
+    + generateCost()
+}
+
+interface Tour {
+    + generateCost()
+    + putTransport()
+}
+
+class EcoHousing {
+    + services()
+    + generateCost()
+}
+class EcoTicket {
+    + generatePath()
+    + generateCost()
+}
+
+class EcoTour {
+    + generateCost()
+    + putTransport()
+}
+
+class ExpHousing {
+    + services()
+    + generateCost()
+}
+class ExpTicket {
+    + generatePath()
+    + generateCost()
+}
+
+class ExpTour {
+    + generateCost()
+    + putTransport()
+}
+
+class Client {
+    + factory: AbstractFactory
+    + generateBooking()
+}
+
+AbstractFactory <|.. EconomicTravel
+AbstractFactory <|.. ExpensiveTravel
+
+Housing <|.up. EcoHousing
+Tour <|.up. EcoTour
+Ticket <|.up. EcoTicket
+
+EconomicTravel .down.> EcoHousing
+EconomicTravel .down.> EcoTour
+EconomicTravel .down.> EcoTicket
+
+ExpensiveTravel .up.> ExpHousing
+ExpensiveTravel .up.> ExpTour
+ExpensiveTravel .up.> ExpTicket
+
+Housing <|.down. ExpHousing
+Tour <|.down. ExpTour
+Ticket <|.down. ExpTicket
+
+Client .left.> AbstractFactory
+
+@enduml
