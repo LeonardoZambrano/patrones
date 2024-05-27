@@ -1,0 +1,134 @@
+@startuml Streaming
+
+class StreamingWebSite <<abstract>> {
+    # device: Device
+    # factory: UIFactory
+    + {abstract} bodyRender()
+    + {abstract} headerRender()
+}
+
+class NetflixWebSite {
+    + bodyRender()
+    + headerRender()
+}
+
+class DisneyWebSite {
+    + bodyRender()
+    + headerRender()
+}
+
+interface Device {
+    + getScreeenWidth(): double
+    + getScreeenHeigth() : double
+    + play(String)
+}
+
+class Desktop {
+    + getScreeenWidth(): double
+    + getScreeenHeigth() : double
+    + play(String)
+}
+
+class Mobile {
+    + getScreeenWidth(): double
+    + getScreeenHeigth() : double
+    + play(String)
+
+}
+
+interface UIFactory {
+    + createMainMenu() : MainMenu
+    + createPlayer() : Player
+    + createContentCard(): ContentCard
+
+}
+
+class UIDisneyFactory {
+    + createMainMenu() : MainMenu
+    + createPlayer() : Player
+    + createContentCard(): ContentCard
+    - createBody()
+}
+
+class UINetflixFactory {
+    + createMainMenu() : MainMenu
+    + createPlayer() : Player
+    + createContentCard(): ContentCard
+}
+
+interface ContentCard {
+    + selectOption()
+    + generateCards()
+}
+
+interface MainMenu {
+    + generateOptionList()
+    + selectOption()
+}
+
+interface Player {
+    + generatePlayer()
+    + generateSubtitles()
+}
+
+class DisneyContentCard {
+    + selectOption()
+    + generateCards()
+}
+
+class DisneyMainMenu {
+    + generateOptionList()
+    + selectOption()
+}
+
+class DisneyPlayer {
+    + generatePlayer()
+    + generateSubtitles()
+}
+
+class NetflixContentCard {
+    + selectOption()
+    + generateCards()
+}
+
+class NetflixMainMenu {
+    + generateOptionList()
+    + selectOption()
+}
+
+class NetflixPlayer {
+    + generatePlayer()
+    + generateSubtitles()
+}
+
+Device <|.. Desktop
+Device <|.. Mobile
+
+StreamingWebSite <|-- NetflixWebSite
+StreamingWebSite <|-- DisneyWebSite
+
+StreamingWebSite .right.> Device
+
+UIFactory <|.. UIDisneyFactory
+UIFactory <|.. UINetflixFactory
+
+StreamingWebSite .left.> UIFactory
+
+ContentCard <|.down. DisneyContentCard
+Player <|.down. DisneyPlayer
+MainMenu <|.down. DisneyMainMenu
+
+UIDisneyFactory .up.> DisneyContentCard
+UIDisneyFactory .up.> DisneyPlayer
+UIDisneyFactory .up.> DisneyMainMenu
+
+ContentCard <|.up. NetflixContentCard
+Player <|.up. NetflixPlayer
+MainMenu <|.up. NetflixMainMenu
+
+UINetflixFactory ..> NetflixContentCard
+UINetflixFactory ..> NetflixMainMenu
+UINetflixFactory ..> NetflixPlayer
+
+
+@enduml
